@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: linux
+          - os: macos-latest
+            name: macos-universal
+          - os: windows-latest
+            name: windows
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        # Audio and windowing headers for the plugin, standalone and examples.
+        run: sudo apt-get update && sudo apt-get install -y libasound2-dev pkg-config libjack-jackd2-dev libx11-dev libx11-xcb-dev libxcursor-dev libxcb-dri2-0-dev libxcb-icccm4-dev libgl1-mesa-dev
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+          targets: ${{ runner.os == 'macOS' && 'x86_64-apple-darwin,aarch64-apple-darwin' || '' }}
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Format
+        run: cargo fmt --all -- --check
+
+      - name: Clippy
+        run: cargo lint
+
+      - name: Test
+        run: cargo test --workspace --locked
+
+      - name: Bundle CLAP
+        if: runner.os != 'macOS'
+        run: cargo xtask bundle dune_crusher --release
+
+      - name: Bundle CLAP (universal)
+        if: runner.os == 'macOS'
+        run: cargo xtask bundle-universal dune_crusher --release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dune_crusher-${{ matrix.name }}
+          path: target/bundled/
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Zip bundles
+        working-directory: dist
+        run: for d in */; do (cd "$d" && zip -qr "../${d%/}-${GITHUB_REF_NAME}.zip" .); done
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" dist/*.zip
+          --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes

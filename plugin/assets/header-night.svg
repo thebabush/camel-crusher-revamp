@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="104" viewBox="0 0 460 104">
+<defs>
+  <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#050914"/><stop offset=".65" stop-color="#0c1830"/><stop offset="1" stop-color="#13284a"/></linearGradient>
+  <radialGradient id="moon" cx=".4" cy=".38"><stop stop-color="#f4fbff"/><stop offset=".7" stop-color="#cfe4f2"/></radialGradient>
+  <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="8"/></filter>
+</defs>
+<rect width="460" height="104" fill="url(#sky)"/>
+<circle cx="251.0" cy="11.0" r="1.0" fill="#e6f4ff" opacity="0.9"/>
+<circle cx="282.75" cy="26.75" r="0.75" fill="#e6f4ff" opacity="0.6"/>
+<circle cx="318.75" cy="8.75" r="0.75" fill="#e6f4ff" opacity="0.7"/>
+<circle cx="300.5" cy="40.5" r="0.5" fill="#e6f4ff" opacity="0.5"/>
+<circle cx="340.5" cy="30.5" r="0.5" fill="#e6f4ff" opacity="0.6"/>
+<circle cx="421.0" cy="13.0" r="1.0" fill="#e6f4ff" opacity="0.8"/>
+<circle cx="440.75" cy="34.75" r="0.75" fill="#e6f4ff" opacity="0.6"/>
+<circle cx="410.5" cy="48.5" r="0.5" fill="#e6f4ff" opacity="0.4"/>
+<circle cx="230.5" cy="30.5" r="0.5" fill="#e6f4ff" opacity="0.5"/>
+<circle cx="212.75" cy="52.75" r="0.75" fill="#e6f4ff" opacity="0.5"/>
+<circle cx="180.5" cy="62.5" r="0.5" fill="#e6f4ff" opacity="0.4"/>
+<circle cx="120.5" cy="64.5" r="0.5" fill="#e6f4ff" opacity="0.5"/>
+<circle cx="60.75" cy="60.75" r="0.75" fill="#e6f4ff" opacity="0.6"/>
+<circle cx="24.5" cy="64.5" r="0.5" fill="#e6f4ff" opacity="0.4"/>
+<circle cx="96.5" cy="70.5" r="0.5" fill="#e6f4ff" opacity="0.3"/>
+<circle cx="268.5" cy="58.5" r="0.5" fill="#e6f4ff" opacity="0.4"/>
+<circle cx="446.5" cy="8.5" r="0.5" fill="#e6f4ff" opacity="0.5"/>
+<circle cx="362.5" cy="6.5" r="0.5" fill="#e6f4ff" opacity="0.6"/>
+<circle cx="381" cy="35" r="19" fill="#a0dcff" opacity=".45" filter="url(#glow)"/><circle cx="381" cy="35" r="19" fill="url(#moon)"/>
+
+      <path d="M0 78 C60 62 110 60 160 72 C210 84 250 58 300 50 C350 42 400 64 460 70 L460 104 L0 104 Z" fill="#0f1c34"></path>
+      <g transform="translate(339 21) scale(0.7)" fill="#0f1c34" stroke="#0f1c34" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 19 C10 12 16 3 23 3 C30 3 33 12 37 15 C40 16 42 14 45 8 C46 5 49 4 52 5 L57 7 C58 8 58 10 56 10 L51 11 C49 13 47 19 43 24 C40 27 34 27 30 27 L16 27 C11 27 8 24 8 19 Z" stroke-width="1"></path>
+        <polyline points="8,19 5,27" fill="none" stroke-width="2"></polyline>
+        <polyline points="38,25 41,35 40,44" fill="none" stroke-width="3.2"></polyline>
+        <polyline points="34,25 32,35 34,44" fill="none" stroke-width="3.2"></polyline>
+        <polyline points="17,25 19,35 17,44" fill="none" stroke-width="3.2"></polyline>
+        <polyline points="13,25 11,35 13,44" fill="none" stroke-width="3.2"></polyline>
+      </g>
+      <path d="M0 92 C70 80 130 86 190 90 C260 95 330 76 460 84 L460 104 L0 104 Z" fill="#0a1020"></path>
+    
+<g transform="translate(20 24)"><path d="M2 19 C6 19 7 5 12.5 5 C17.5 5 17 14 20.5 14 C24 14 24 8 28.5 8 C33 8 33 19 38 19" fill="none" stroke="#4fd8f0" stroke-width="2.4" stroke-linecap="round"></path></g>
+</svg>

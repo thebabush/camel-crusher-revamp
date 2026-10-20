@@ -1,0 +1,13 @@
+[package]
+name = "dune-crusher-dsp"
+version = "0.1.0"
+edition = "2021"
+description = "Dune Crusher DSP signal chain"
+license = "MIT"
+
+[dependencies]
+
+[dev-dependencies]
+# Only for examples/play.rs.
+cpal = "0.15"
+symphonia = { version = "0.5", features = ["mp3"] }

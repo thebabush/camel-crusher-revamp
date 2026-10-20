@@ -1,0 +1,26 @@
+[package]
+name = "dune_crusher"
+version = "0.1.0"
+edition = "2021"
+# MIT as built by default (CLAP only). Enabling the `vst3` feature links GPLv3 code
+# (vst3-sys), which makes the resulting binary GPLv3.
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[features]
+default = []
+vst3 = ["nih_plug/vst3"]
+standalone = ["nih_plug/standalone"]
+
+[dependencies]
+dune-crusher-dsp = { path = "../dsp" }
+nih_plug = { git = "https://github.com/robbert-vdh/nih-plug.git", default-features = false, features = ["assert_process_allocs"] }
+nih_plug_egui = { git = "https://github.com/robbert-vdh/nih-plug.git", default-features = false, features = ["opengl"] }
+resvg = { version = "0.45", default-features = false }
+
+[[bin]]
+name = "dune_crusher"
+path = "src/main.rs"
+required-features = ["standalone"]
