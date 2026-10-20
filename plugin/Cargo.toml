@@ -1,6 +1,6 @@
 [package]
 name = "dune_crusher"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 # MIT as built by default (CLAP only). Enabling the `vst3` feature links GPLv3 code
 # (vst3-sys), which makes the resulting binary GPLv3.

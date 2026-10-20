@@ -4,7 +4,9 @@ A reimplementation of Camel Audio's CamelCrusher (discontinued) as a CLAP plugin
 optional) in Rust.
 See [docs/signal-chain.md](docs/signal-chain.md) for how the DSP works, block by block.
 
-<img src="docs/img/dune-crusher.png" alt="Dune Crusher interface showing the Annihilate preset" width="570">
+<p align="center">
+  <img src="docs/img/dune-crusher.png" alt="Dune Crusher interface showing the Annihilate preset" width="570">
+</p>
 
 - `dsp/`: the signal chain, with no dependencies. Includes `render`, an offline renderer for
   raw f32 files.

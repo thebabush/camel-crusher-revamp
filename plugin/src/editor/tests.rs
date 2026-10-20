@@ -96,6 +96,40 @@ fn header_texture_tracks_display_scale() {
 }
 
 #[test]
+fn reopening_editor_uploads_header_to_each_new_renderer() {
+    let mut state = State {
+        header: None,
+        last_preset: 3,
+        random: 1,
+        drag_value: 0.0,
+    };
+    for _ in 0..3 {
+        let ctx = egui::Context::default();
+        initialize_editor(&ctx, &mut state);
+        let mut header_id = None;
+        let output = ctx.run(egui::RawInput::default(), |ctx| {
+            header_id = Some(state.header(ctx).id());
+        });
+        let (_, delta) = output
+            .textures_delta
+            .set
+            .iter()
+            .find(|(id, _)| Some(*id) == header_id)
+            .expect("each reopened renderer must receive the header pixels");
+        assert_eq!(delta.image.size(), [460, 104]);
+        let output = ctx.run(egui::RawInput::default(), |ctx| {
+            assert_eq!(Some(state.header(ctx).id()), header_id);
+        });
+        assert!(!output
+            .textures_delta
+            .set
+            .iter()
+            .any(|(id, _)| Some(*id) == header_id));
+        assert_eq!(state.last_preset, 3);
+    }
+}
+
+#[test]
 fn knob_drag_uses_one_gesture_and_shift_is_ten_times_finer() {
     for (shift, expected) in [(false, 0.6), (true, 0.51)] {
         let ctx = egui::Context::default();

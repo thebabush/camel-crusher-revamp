@@ -40,39 +40,7 @@ pub fn create(params: Arc<CrusherParams>) -> Option<Box<dyn Editor>> {
                 | 1,
             drag_value: 0.0,
         },
-        |ctx, _| {
-            let mut fonts = egui::FontDefinitions::default();
-            for (name, bytes) in [
-                (
-                    "archivo",
-                    include_bytes!("../assets/fonts/Archivo-Medium.ttf").as_slice(),
-                ),
-                (
-                    "archivo-italic",
-                    include_bytes!("../assets/fonts/Archivo-BlackItalic.ttf").as_slice(),
-                ),
-                (
-                    "bold",
-                    include_bytes!("../assets/fonts/BricolageGrotesque-Bold.ttf").as_slice(),
-                ),
-                (
-                    "extra",
-                    include_bytes!("../assets/fonts/BricolageGrotesque-ExtraBold.ttf").as_slice(),
-                ),
-                (
-                    "mono",
-                    include_bytes!("../assets/fonts/IBMPlexMono-Regular.ttf").as_slice(),
-                ),
-            ] {
-                fonts
-                    .font_data
-                    .insert(name.into(), egui::FontData::from_static(bytes).into());
-                fonts
-                    .families
-                    .insert(FontFamily::Name(name.into()), vec![name.into()]);
-            }
-            ctx.set_fonts(fonts);
-        },
+        initialize_editor,
         move |ctx, setter, state| {
             egui::CentralPanel::default()
                 .frame(egui::Frame::NONE.fill(Theme::BACKGROUND))
@@ -81,6 +49,43 @@ pub fn create(params: Arc<CrusherParams>) -> Option<Box<dyn Editor>> {
                 });
         },
     )
+}
+
+fn initialize_editor(ctx: &egui::Context, state: &mut State) {
+    // Hosts can reopen the editor with a new renderer while retaining State.
+    // Texture handles belong to the old renderer and must be uploaded again.
+    state.header = None;
+    let mut fonts = egui::FontDefinitions::default();
+    for (name, bytes) in [
+        (
+            "archivo",
+            include_bytes!("../assets/fonts/Archivo-Medium.ttf").as_slice(),
+        ),
+        (
+            "archivo-italic",
+            include_bytes!("../assets/fonts/Archivo-BlackItalic.ttf").as_slice(),
+        ),
+        (
+            "bold",
+            include_bytes!("../assets/fonts/BricolageGrotesque-Bold.ttf").as_slice(),
+        ),
+        (
+            "extra",
+            include_bytes!("../assets/fonts/BricolageGrotesque-ExtraBold.ttf").as_slice(),
+        ),
+        (
+            "mono",
+            include_bytes!("../assets/fonts/IBMPlexMono-Regular.ttf").as_slice(),
+        ),
+    ] {
+        fonts
+            .font_data
+            .insert(name.into(), egui::FontData::from_static(bytes).into());
+        fonts
+            .families
+            .insert(FontFamily::Name(name.into()), vec![name.into()]);
+    }
+    ctx.set_fonts(fonts);
 }
 
 fn font(name: &str, size: f32) -> FontId {
